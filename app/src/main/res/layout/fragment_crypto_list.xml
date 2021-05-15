@@ -4,10 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presentation.list.MotoListFragment">
+    tools:context=".presentation.list.CryptoListFragment">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/moto_recyclerview"
+        android:id="@+id/crypto_recyclerview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_constraintTop_toTopOf="parent"
