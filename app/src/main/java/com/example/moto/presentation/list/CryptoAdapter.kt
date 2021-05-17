@@ -7,8 +7,9 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.moto.R
 
-class CryptoAdapter(private var dataSet: List<Crypto>) :
-    RecyclerView.Adapter<CryptoAdapter.ViewHolder>() {
+class CryptoAdapter(private var dataSet: List<Crypto>, var listener : ((Crypto)->Unit)? = null) : RecyclerView.Adapter<CryptoAdapter.ViewHolder>() {
+
+
 
     /**
      * Provide a reference to the type of views that you are using
@@ -46,6 +47,9 @@ class CryptoAdapter(private var dataSet: List<Crypto>) :
         // contents of the view with that element
         val crypto = dataSet[position]
         viewHolder.textView.text = crypto.name
+        viewHolder.itemView.setOnClickListener {
+            listener?.invoke(crypto)
+        }
     }
 
     // Return the size of your dataset (invoked by the layout manager)
