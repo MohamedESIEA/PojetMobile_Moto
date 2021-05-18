@@ -7,7 +7,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.moto.R
 
-class CryptoAdapter(private var dataSet: List<Crypto>, var listener : ((Crypto)->Unit)? = null) : RecyclerView.Adapter<CryptoAdapter.ViewHolder>() {
+class CryptoAdapter(private var dataSet: List<Crypto>, private var listener : ((Int)->Unit)? = null) : RecyclerView.Adapter<CryptoAdapter.ViewHolder>() {
 
 
 
@@ -48,7 +48,7 @@ class CryptoAdapter(private var dataSet: List<Crypto>, var listener : ((Crypto)-
         val crypto = dataSet[position]
         viewHolder.textView.text = crypto.name
         viewHolder.itemView.setOnClickListener {
-            listener?.invoke(crypto)
+            listener?.invoke(position)
         }
     }
 

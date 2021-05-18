@@ -4,28 +4,24 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.moto.R
-import com.example.moto.presentation.api.CryptoApi
-import com.example.moto.presentation.api.CryptoResponse
+import com.example.moto.presentation.Singletons
+import com.example.moto.presentation.api.CryptoListResponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 
 
-/**
- * A simple [Fragment] subclass as the default destination in the navigation.
- */
 class CryptoListFragment : Fragment() {
 
     private lateinit var recyclerView: RecyclerView
     private val adapter = CryptoAdapter(listOf(), ::onClickedCrypto)
-    private val layoutManager = LinearLayoutManager(context)
+
 
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
@@ -42,29 +38,22 @@ class CryptoListFragment : Fragment() {
 
 
         recyclerView.apply {
-            layoutManager = this@CryptoListFragment.layoutManager
+            layoutManager = LinearLayoutManager(context)
             adapter = this@CryptoListFragment.adapter
         }
 
 
-        val retrofit = Retrofit.Builder()
-            .baseUrl("https://api.coincap.io/v2/")
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-
-        val cryptoApi: CryptoApi = retrofit.create(CryptoApi::class.java)
-
-        cryptoApi.getCryptoList("25").enqueue(object : Callback<CryptoResponse>{
-            override fun onResponse( call: Call<CryptoResponse>, response: Response<CryptoResponse>) {
+        Singletons.cryptoApi.getCryptoList("25").enqueue(object : Callback<CryptoListResponse>{
+            override fun onResponse(call: Call<CryptoListResponse>, response: Response<CryptoListResponse>) {
                 if (response.isSuccessful && response.body() != null){
                     val cryptoResponse = response.body()
                     if (cryptoResponse != null) {
-                        adapter.updateList(cryptoResponse.data)
+                        adapter.updateList(cryptoResponse.results)
                     }
                 }
             }
 
-            override fun onFailure(call: Call<CryptoResponse>, t: Throwable) {
+            override fun onFailure(call: Call<CryptoListResponse>, t: Throwable) {
                 TODO("Not yet implemented")
             }
 
@@ -72,8 +61,10 @@ class CryptoListFragment : Fragment() {
 
     }
 
-    private fun onClickedCrypto(crypto: Crypto) {
-        findNavController().navigate(R.id.navigateToCryptoDetailFragment)
+    private fun onClickedCrypto(id: Int) {
+        findNavController().navigate(R.id.navigateToCryptoDetailFragment, bundleOf(
+            "cryptoId" to (id+1)
+        ))
     }
 }
 

@@ -17,9 +17,13 @@
     </fragment>
     <fragment
         android:id="@+id/CryptoDetailFragment"
-        android:name="com.example.moto.SecondFragment"
+        android:name="com.example.moto.presentation.detail.CryptoDetailFragment"
         android:label="@string/second_fragment_label"
-        tools:layout="@layout/fragment_second">
+        tools:layout="@layout/fragment_crypto_detail">
+        <argument
+            android:name="cryptoId"
+            app:argType="integer"
+            android:defaultValue="-1"/>
 
         <action
             android:id="@+id/navigateToCryptoListFragment"
