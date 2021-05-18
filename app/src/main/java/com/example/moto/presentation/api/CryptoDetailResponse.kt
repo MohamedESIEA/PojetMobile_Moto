@@ -1,6 +1,7 @@
 package com.example.moto.presentation.api
 
 data class CryptoDetailResponse(
-    val name: String
+    val gender: String,
+    val species : String
     // val : Float
 )

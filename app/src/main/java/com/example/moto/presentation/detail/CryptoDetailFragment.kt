@@ -5,13 +5,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.TextView
-import androidx.navigation.fragment.findNavController
 import com.example.moto.R
 import com.example.moto.presentation.Singletons
 import com.example.moto.presentation.api.CryptoDetailResponse
-import org.w3c.dom.Text
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -20,6 +17,7 @@ import retrofit2.Response
 class CryptoDetailFragment : Fragment() {
 
     private lateinit var textViewName: TextView
+    private lateinit var textViewSpecies : TextView
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?
@@ -32,6 +30,7 @@ class CryptoDetailFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         textViewName = view.findViewById(R.id.crypto_detail_name)
+        textViewSpecies = view.findViewById(R.id.crypto_detail_species)
         callApi()
     }
 
@@ -41,7 +40,8 @@ class CryptoDetailFragment : Fragment() {
             override fun onResponse(call: Call<CryptoDetailResponse>, response: Response<CryptoDetailResponse>
             ) {
                 if (response.isSuccessful && response.body() != null){
-                    textViewName.text = response.body()!!.name
+                    textViewName.text = response.body()!!.gender
+                    textViewSpecies.text = response.body()!!.species
                 }
 
             }

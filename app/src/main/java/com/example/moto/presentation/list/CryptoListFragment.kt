@@ -59,6 +59,14 @@ class CryptoListFragment : Fragment() {
 
         })
 
+
+    }
+
+
+    private fun showList(cryptoList: List<Crypto>) {
+        if (cryptoList != null) {
+            adapter.updateList(cryptoList)
+        }
     }
 
     private fun onClickedCrypto(id: Int) {
