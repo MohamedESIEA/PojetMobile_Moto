@@ -7,16 +7,26 @@
     android:layout_height="50dp"
     >
 
+    <ImageView
+        android:id="@+id/crypto_img"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+
+        />
     <TextView
         android:id="@+id/crypto_name"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         tools:text="MT07"
+        android:layout_marginStart="10dp"
         android:textAlignment="center"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@id/crypto_img"
         />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
