@@ -5,12 +5,12 @@ import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
 
-interface CryptoApi {
+interface RickApi {
     @GET("character")
-    fun getCryptoList(@Query("limit") limit: String): Call<CryptoListResponse>
+    fun getRickList(@Query("limit") limit: String): Call<RickListResponse>
 
     @GET("character/{id}")
-    fun getCryptoDetail(@Path("id") id: Int): Call<CryptoDetailResponse>
+    fun getRickDetail(@Path("id") id: Int): Call<RickDetailResponse>
 
 
 

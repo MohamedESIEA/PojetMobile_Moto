@@ -1,7 +1,7 @@
 package com.example.moto.presentation
 
-import com.example.moto.presentation.CryptoApplication.Companion.context
-import com.example.moto.presentation.api.CryptoApi
+import com.example.moto.presentation.RickApplication.Companion.context
+import com.example.moto.presentation.api.RickApi
 import okhttp3.Cache
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
@@ -17,12 +17,12 @@ class Singletons {
             .cache(cache)
             .build()
 
-        val cryptoApi: CryptoApi = Retrofit.Builder()
+        val RICK_API: RickApi = Retrofit.Builder()
             .baseUrl("https://rickandmortyapi.com/api/")
             .addConverterFactory(GsonConverterFactory.create())
             .client(okHttpClient)
             .build()
-            .create(CryptoApi::class.java)
+            .create(RickApi::class.java)
 
 
     }

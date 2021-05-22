@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.moto.R
 
-class CryptoAdapter(private var dataSet: List<Crypto>, private var listener : ((Int)->Unit)? = null) : RecyclerView.Adapter<CryptoAdapter.ViewHolder>() {
+class RickAdapter(private var dataSet: List<Rick>, private var listener : ((Int)->Unit)? = null) : RecyclerView.Adapter<RickAdapter.ViewHolder>() {
 
 
 
@@ -23,13 +23,13 @@ class CryptoAdapter(private var dataSet: List<Crypto>, private var listener : ((
 
         init {
             // Define click listener for the ViewHolder's View.
-            textView = view.findViewById(R.id.crypto_name)
-            imageView = view.findViewById((R.id.crypto_img))
+            textView = view.findViewById(R.id.rick_name)
+            imageView = view.findViewById((R.id.rick_img))
         }
     }
 
 
-    fun updateList(list: List<Crypto>) {
+    fun updateList(list: List<Rick>) {
         dataSet = list
         notifyDataSetChanged()
     }
@@ -39,7 +39,7 @@ class CryptoAdapter(private var dataSet: List<Crypto>, private var listener : ((
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
         // Create a new view, which defines the UI of the list item
         val view = LayoutInflater.from(viewGroup.context)
-            .inflate(R.layout.crypto_item, viewGroup, false)
+            .inflate(R.layout.rick_item, viewGroup, false)
 
         return ViewHolder(view)
     }
@@ -49,8 +49,8 @@ class CryptoAdapter(private var dataSet: List<Crypto>, private var listener : ((
 
         // Get element from your dataset at this position and replace the
         // contents of the view with that element
-        val crypto = dataSet[position]
-        viewHolder.textView.text = crypto.name
+        val rick = dataSet[position]
+        viewHolder.textView.text = rick.name
         viewHolder.itemView.setOnClickListener {
             listener?.invoke(position)
         }

@@ -8,13 +8,13 @@ import android.view.ViewGroup
 import android.widget.TextView
 import com.example.moto.R
 import com.example.moto.presentation.Singletons
-import com.example.moto.presentation.api.CryptoDetailResponse
+import com.example.moto.presentation.api.RickDetailResponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 
-class CryptoDetailFragment : Fragment() {
+class RickDetailFragment : Fragment() {
 
     private lateinit var textViewName: TextView
     private lateinit var textViewSpecies : TextView
@@ -23,21 +23,21 @@ class CryptoDetailFragment : Fragment() {
             savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_crypto_detail, container, false)
+        return inflater.inflate(R.layout.fragment_rick_detail, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        textViewName = view.findViewById(R.id.crypto_detail_name)
-        textViewSpecies = view.findViewById(R.id.crypto_detail_species)
+        textViewName = view.findViewById(R.id.rick_detail_name)
+        textViewSpecies = view.findViewById(R.id.rick_detail_species)
         callApi()
     }
 
     private fun callApi() {
-        val id = arguments?.getInt("cryptoId") ?: -1
-        Singletons.cryptoApi.getCryptoDetail(id).enqueue(object : Callback<CryptoDetailResponse>{
-            override fun onResponse(call: Call<CryptoDetailResponse>, response: Response<CryptoDetailResponse>
+        val id = arguments?.getInt("rickId") ?: -1
+        Singletons.RICK_API.getRickDetail(id).enqueue(object : Callback<RickDetailResponse>{
+            override fun onResponse(call: Call<RickDetailResponse>, response: Response<RickDetailResponse>
             ) {
                 if (response.isSuccessful && response.body() != null){
                     textViewName.text = response.body()!!.gender
@@ -46,7 +46,7 @@ class CryptoDetailFragment : Fragment() {
 
             }
 
-            override fun onFailure(call: Call<CryptoDetailResponse>, t: Throwable) {
+            override fun onFailure(call: Call<RickDetailResponse>, t: Throwable) {
                 TODO("Not yet implemented")
             }
 

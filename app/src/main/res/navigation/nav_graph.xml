@@ -3,30 +3,30 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/CryptoListFragment">
+    app:startDestination="@id/RickListFragment">
 
     <fragment
-        android:id="@+id/CryptoListFragment"
-        android:name="com.example.moto.presentation.list.CryptoListFragment"
+        android:id="@+id/RickListFragment"
+        android:name="com.example.moto.presentation.list.RickListFragment"
         android:label="@string/first_fragment_label"
-        tools:layout="@layout/fragment_crypto_list">
+        tools:layout="@layout/fragment_rick_list">
 
         <action
-            android:id="@+id/navigateToCryptoDetailFragment"
-            app:destination="@id/CryptoDetailFragment" />
+            android:id="@+id/navigateToRickDetailFragment"
+            app:destination="@id/RickDetailFragment" />
     </fragment>
     <fragment
-        android:id="@+id/CryptoDetailFragment"
-        android:name="com.example.moto.presentation.detail.CryptoDetailFragment"
+        android:id="@+id/RickDetailFragment"
+        android:name="com.example.moto.presentation.detail.RickDetailFragment"
         android:label="@string/second_fragment_label"
-        tools:layout="@layout/fragment_crypto_detail">
+        tools:layout="@layout/fragment_rick_detail">
         <argument
-            android:name="cryptoId"
+            android:name="rickId"
             app:argType="integer"
             android:defaultValue="-1"/>
 
         <action
-            android:id="@+id/navigateToCryptoListFragment"
-            app:destination="@id/CryptoListFragment" />
+            android:id="@+id/navigateToRickListFragment"
+            app:destination="@id/RickListFragment" />
     </fragment>
 </navigation>

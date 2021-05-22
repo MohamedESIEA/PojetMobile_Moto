@@ -3,7 +3,7 @@ package com.example.moto.presentation
 import android.app.Application
 import android.content.Context
 
-class CryptoApplication : Application() {
+class RickApplication : Application() {
     companion object {
         var context: Context? = null
     }
