@@ -11,13 +11,15 @@ import retrofit2.Response
 
 class CryptoListViewModel : ViewModel(){
 
-    val cryptoList: MutableLiveData<List<Crypto>> = MutableLiveData()
+    val cryptoList: MutableLiveData<CryptoModel> = MutableLiveData()
 
     init {
         callApi()
     }
 
     private fun callApi() {
+        cryptoList.value = CryptoLoader
+
         Singletons.cryptoApi.getCryptoList("25").enqueue(object : Callback<CryptoListResponse> {
             override fun onResponse(
                 call: Call<CryptoListResponse>,
@@ -25,12 +27,14 @@ class CryptoListViewModel : ViewModel(){
             ) {
                 if (response.isSuccessful && response.body() != null) {
                     val cryptoResponse = response.body()!!
-                    cryptoList.value= cryptoResponse.results
+                    cryptoList.value= CryptoSuccess(cryptoResponse.results)
+                }else {
+                    cryptoList.value= CryptoError
                 }
             }
 
             override fun onFailure(call: Call<CryptoListResponse>, t: Throwable) {
-                TODO("Not yet implemented")
+                cryptoList.value= CryptoError
             }
         })
     }

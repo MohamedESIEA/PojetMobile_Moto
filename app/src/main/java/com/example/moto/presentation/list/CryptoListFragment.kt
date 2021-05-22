@@ -4,7 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
+import android.widget.TextView
 import androidx.core.os.bundleOf
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -24,6 +27,8 @@ class CryptoListFragment : Fragment() {
     private lateinit var recyclerView: RecyclerView
     private val adapter = CryptoAdapter(listOf(), ::onClickedCrypto)
     private val viewModel : CryptoListViewModel by viewModels()
+    private lateinit var loader : ProgressBar
+    private lateinit var textViewError: TextView
 
 
     override fun onCreateView(
@@ -38,19 +43,23 @@ class CryptoListFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         recyclerView = view.findViewById(R.id.crypto_recyclerview)
-
+        loader = view.findViewById(R.id.crypto_loader)
+        textViewError = view.findViewById(R.id.crypto_error)
 
         recyclerView.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = this@CryptoListFragment.adapter
         }
 
-        viewModel.cryptoList.observe(viewLifecycleOwner, Observer {  list ->
-            adapter.updateList(list)
+        viewModel.cryptoList.observe(viewLifecycleOwner, Observer {  cryptoModel ->
+            loader.isVisible = cryptoModel is CryptoLoader
+            textViewError.isVisible = cryptoModel is CryptoError
+
+            if(cryptoModel is CryptoSuccess) {
+                adapter.updateList(cryptoModel.cryptoList)
+            }
+
         })
-
-
-
     }
 
 
