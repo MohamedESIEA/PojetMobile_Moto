@@ -5,7 +5,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
+import com.bumptech.glide.Glide
 import com.example.moto.R
 import com.example.moto.presentation.Singletons
 import com.example.moto.presentation.api.RickDetailResponse
@@ -16,8 +18,11 @@ import retrofit2.Response
 
 class RickDetailFragment : Fragment() {
 
-    private lateinit var textViewName: TextView
+    private lateinit var textViewGender: TextView
     private lateinit var textViewSpecies : TextView
+    private lateinit var textViewStatus : TextView
+    private lateinit var textViewName : TextView
+    private lateinit var imageView: ImageView
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?
@@ -29,8 +34,11 @@ class RickDetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        textViewName = view.findViewById(R.id.rick_detail_name)
+        textViewGender = view.findViewById(R.id.rick_detail_gender)
         textViewSpecies = view.findViewById(R.id.rick_detail_species)
+        imageView = view.findViewById(R.id.rick_img)
+        textViewStatus = view.findViewById(R.id.rick_detail_status)
+        textViewName = view.findViewById(R.id.rick_detail_name)
         callApi()
     }
 
@@ -40,8 +48,13 @@ class RickDetailFragment : Fragment() {
             override fun onResponse(call: Call<RickDetailResponse>, response: Response<RickDetailResponse>
             ) {
                 if (response.isSuccessful && response.body() != null){
-                    textViewName.text = response.body()!!.gender
+                    textViewGender.text = response.body()!!.gender
                     textViewSpecies.text = response.body()!!.species
+                    textViewStatus.text = response.body()!!.status
+                    textViewName.text = response.body()!!.name
+                    Glide.with(this@RickDetailFragment).load(response.body()!!.image).into(imageView)
+
+
                 }
 
             }
@@ -53,4 +66,5 @@ class RickDetailFragment : Fragment() {
         })
 
     }
+
 }
